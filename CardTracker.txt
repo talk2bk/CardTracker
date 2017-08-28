@@ -1,0 +1,51 @@
+add option to search for a card to add to a user
+your user account screen has:
+	an add button
+	a list of cards you have in your possession (borrowed)
+	(maybe add a list of cards you own, that'd be huge nuts)
+	
+when you click on create a card you are prompted for:
+	1. a card name (for now)
+	2. a drop down of current users (or type in a name)
+
+
+
+Each person is an object
+	name
+	array of cards that they have
+each card is an object
+	card name
+	original owner
+
+
+ISSUES:
+seems like quickly adding in cards is gonna be difficult or awkward
+	probably needs a quick way to find users and cards.
+	global database of *unique* users (like usernames) required.
+	having one person create a "im borrowing this card object" should create it as well in the respective person's "cards being borrowed" list.
+
+solution to creating cards: during creation prompt for original and current owner. default both to the current user.
+
+
+how it works:
+each user keeps track of what cards they have currently.
+	easier to deal with, since we have a database of users we can skim to look up who has what.
+each card keeps track of it's original owner and current owner.
+
+when looking up:
+cards you are borrowing:
+	look in the current user's collection
+
+cards you own that are being borrowed:
+	look through every user for your cards? seems too slow.
+	should we have a database of all the cards? no also too slow on a larger scale.
+	everytime someone borrows a card from you or oyu borrow from them, have the user keep track of these other users for faster lookup? seems good. more work though.
+
+all cards(cards you are bororwing and being borrowed):
+	just do both operations.
+
+
+
+
+the future:
+have an option to add make a borrowed card now a card that belongs to the borrowed(like a trade happened)

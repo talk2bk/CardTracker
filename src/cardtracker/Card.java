@@ -25,4 +25,13 @@ public class Card {
         }
         return false;
     }
+    public String getName(){
+        return cardName;
+    }
+    public User getOriginalOwner(){
+        return originalOwner;
+    }
+    public User getCurrentOwner(){
+        return currentOwner;
+    }
 }

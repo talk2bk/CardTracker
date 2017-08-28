@@ -48,4 +48,6 @@ all cards(cards you are bororwing and being borrowed):
 
 
 the future:
-have an option to add make a borrowed card now a card that belongs to the borrowed(like a trade happened)
+*have an option to add make a borrowed card now a card that belongs to the borrowed(like a trade happened)
+*unique ids?
+*allow cardtracker to load preexisting databases, sinec there will be multiple maybe

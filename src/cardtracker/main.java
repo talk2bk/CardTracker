@@ -9,11 +9,6 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) {
-        //look for an existing "database"
-            //if not found, create a new one
-                //prompt for information???
-        //once database is found, load information
-        //temp database for test
         CardTracker database = new CardTracker();
         User currentUser = null;
         //temp database for test
@@ -29,21 +24,33 @@ public class main {
                     case 1: 
                         System.out.println("please enter a name: ");
                         try{
-                            if(database.login(input.next())){
-                                //set currentUser ot be the found user.
+                            currentUser = database.lookup(input.next());
+                            if(currentUser == null){
+                                System.out.println("login failed: user not found");
+                                break;
                             }
                             loggedin = true;
                             System.out.println("login succeeded");
+                            break;
                         }catch(Exception e){
                             System.out.println("login failed");
+                            System.out.println(e.toString());
                             break;
                         }
                         
-                    case 2:
+                    case 2: //currentl broken
                         System.out.println("please enter a name");
-                        //look up the name
-                            //if it doesnt exist, add it and bam done.
+                        String name = input.next();
+                        if(database.lookup(name) != null){ //look up the name
+                            System.out.println("name found, but this function is broken.");
                             //if it does exist: prompt for a new name.
+                            
+                        }
+                        else{
+                            currentUser = database.createUser(name);
+                            //if it doesnt exist, add it and bam done.
+                        }
+                        break;
                     default: System.out.println("invalid choice"); break;
                 }
                 //if sign in then look up name in database (cardtracker's job)
@@ -71,9 +78,9 @@ public class main {
             //deal with response
             int choice = input.nextInt();
             switch(choice){
-                case 1: database.displayBorrowedCards(); break;
-                case 2: database.displayOwnedCards(); break;
-                case 3: database.displayAllCards(); break;
+                case 1: database.displayBorrowedCards(currentUser); break;
+                case 2: database.displayOwnedCards(currentUser); break;
+                case 3: database.displayAllCards(currentUser); break;
                 case 5: database.addCard(); break;
                 case 999: running = false; break;
                 default: System.out.println("invalid choice."); break;

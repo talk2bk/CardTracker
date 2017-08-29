@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class CardTracker {
     //this class handles database stuff and manages between cards and users
-    userDatabase users;
+    ArrayList<User> users;
     public CardTracker(){
         loadDatabase();
     }
@@ -19,7 +19,7 @@ public class CardTracker {
     void displayOwnedCards(User currentUser){ //these are the cards you own personally
         //parameters: current user
         //query database based on cards with original owner current user
-        throw new UnsupportedOperationException("Not supported yet."); 
+         
     }
     void displayBorrowedCards(User currentUser){//cards you have in your collection, not necessarily yours
         //parameters: current user
@@ -29,16 +29,20 @@ public class CardTracker {
     }
 
     void displayAllCards(User currentUser) {//cards in your current collection and cards being loaned out
-        throw new UnsupportedOperationException("Not supported yet."); 
+        displayCards(currentUser.getCards()); 
     }
 
-    void addCard() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void addCard(String cardName, String originalOwnerName, User currentOwner) {
+        int index = users.indexOf(currentOwner);
+        currentOwner.addACard(new Card(cardName, lookup(originalOwnerName), currentOwner));
+        users.set(index, currentOwner);
+        saveDatabase();
     }
     
     /*Handle User loading/creation/lookup*/
+    
     User lookup(String name){
-        for(User temp: users.getUsers()){
+        for(User temp: users){
             if(temp.getName().equalsIgnoreCase(name)){
                 return temp;
             }
@@ -70,12 +74,12 @@ public class CardTracker {
         try{
             FileInputStream input = new FileInputStream("users.db");
             ObjectInputStream objectIn = new ObjectInputStream(input);
-            users = (userDatabase) objectIn.readObject();
+            users = (ArrayList<User>) objectIn.readObject();
             objectIn.close();
             System.out.println("successfully loaded database.");
         }catch(FileNotFoundException e){
             //no preexisting database, so make one.
-            users = new userDatabase();
+            users = new ArrayList<User>();
             System.out.println("no database found, creating new one.");
         }catch(Exception e){
             System.out.println(e.toString());

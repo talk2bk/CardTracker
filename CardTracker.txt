@@ -26,6 +26,8 @@ seems like quickly adding in cards is gonna be difficult or awkward
 
 solution to creating cards: during creation prompt for original and current owner. default both to the current user.
 
+adding cards:
+
 
 how it works:
 each user keeps track of what cards they have currently.

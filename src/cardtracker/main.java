@@ -73,7 +73,8 @@ public class main {
             //card collection (list of both borrowed and being borrowed????)
             System.out.println("4. create a new card");
             //add a card, whether you borrowed it or are going to borrow it. adds it to both users collections.
-               
+               //ask for card name, ask for original owner, ask for current owner?
+               //lookup other user and "link" it. 
             System.out.println("999. quitters always win");
             //deal with response
             int choice = input.nextInt();
@@ -81,7 +82,16 @@ public class main {
                 case 1: database.displayBorrowedCards(currentUser); break;
                 case 2: database.displayOwnedCards(currentUser); break;
                 case 3: database.displayAllCards(currentUser); break;
-                case 5: database.addCard(); break;
+                case 4: 
+                    input.nextLine();
+                    System.out.println("Please input: cardName");
+                    String name = input.nextLine();
+                    System.out.println("Please Input: originalowner");
+                    String originalOwner = input.nextLine();
+                    //System.out.println("Please Input: Current Owner");
+                    //String currentOwner = input.next();
+                    database.addCard(name,originalOwner,currentUser); 
+                    break;
                 case 999: running = false; break;
                 default: System.out.println("invalid choice."); break;
             }

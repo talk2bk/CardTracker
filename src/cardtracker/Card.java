@@ -1,7 +1,9 @@
 
 package cardtracker;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Comparable, Serializable{
     private String cardName;
     private User originalOwner;
     private User currentOwner;
@@ -33,5 +35,25 @@ public class Card {
     }
     public User getCurrentOwner(){
         return currentOwner;
+    }
+
+    @Override
+    public int compareTo(Object t) {
+        Card temp = (Card) t;
+        if(cardName.equalsIgnoreCase(temp.getName())){
+            return originalOwner.compareTo(temp.originalOwner);
+        }
+        return cardName.compareTo(temp.cardName);
+    }
+    
+    @Override
+    public boolean equals(Object t){
+        Card temp = (Card) t;
+        if(cardName.equalsIgnoreCase(temp.getName())){
+            if(originalOwner.equals(temp.originalOwner)){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -11,9 +11,11 @@ public class CardTracker {
         loadDatabase();
     }
     void displayCards(ArrayList<Card> cards){
+        System.out.println("\nCards: ");
         for(Card temp: cards){
-            System.out.println(temp.getName());
+            System.out.println(temp.getName()+ " : " + temp.getOriginalOwner().getName() + " : "+ temp.getCurrentOwner().getName());
         }
+        System.out.println("End Cards.\n");
     }
     
     void displayOwnedCards(User currentUser){ //these are the cards you own personally

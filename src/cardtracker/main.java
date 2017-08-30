@@ -31,6 +31,7 @@ public class main {
                             }
                             loggedin = true;
                             System.out.println("login succeeded");
+                            loggedin = true;
                             break;
                         }catch(Exception e){
                             System.out.println("login failed");
@@ -48,6 +49,7 @@ public class main {
                         }
                         else{
                             currentUser = database.createUser(name);
+                            loggedin = true;
                             //if it doesnt exist, add it and bam done.
                         }
                         break;

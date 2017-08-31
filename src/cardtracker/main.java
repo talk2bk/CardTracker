@@ -16,52 +16,55 @@ public class main {
         Scanner input = new Scanner(System.in);
         boolean loggedin = false;
         while(running){
-            if(!loggedin){
-                System.out.println("1.login/n 2.make a new user.");
+            /*login loop start*/
+            while(!loggedin){
+                System.out.println("1.login\n2.make a new user.");
                 //prompt user for sign in or new account
                 int choice = input.nextInt();
                 switch(choice){
                     case 1: //login
-                        System.out.println("please enter a name: ");
+                        System.out.println("username: ");
                         try{
                             currentUser = database.lookup(input.next());
+                            //if sign in then look up name in database (cardtracker's job)
                             if(currentUser == null){
                                 System.out.println("login failed: user not found");
+                                 //if not found, prompt for reenter
                                 break;
                             }
                             loggedin = true;
+                            //if found, return true and set that as currentUser.
                             System.out.println("login succeeded");
                             break;
                         }catch(Exception e){
-                            System.out.println("login failed");
+                            System.out.println("exception hit during login");
                             System.out.println(e.toString());
                             break;
                         }
                         
                     case 2: //create account
-                        System.out.println("please enter a name");
+                        //if new user:
+                        System.out.println("please enter a name: ");
                         String name = input.next();
+                        //ask for username
                         if(database.lookup(name) != null){ //look up the name
-                            System.out.println("name found, but this function is broken.");
+                            System.out.println("name already exists.");
                             //if it does exist: prompt for a new name.
                             
                         }
                         else{
                             currentUser = database.createUser(name);
+                            //save username to database.; set currentUser to that person
                             loggedin = true;
+                            System.out.println("login succeeded");
                             //if it doesnt exist, add it and bam done.
                         }
                         break;
+                    case 3: database.displayUsers(); break;
                     default: System.out.println("invalid choice"); break;
-                }
-                //if sign in then look up name in database (cardtracker's job)
-                    //if found, return true and set that as currentUser.
-                    //if not found, prompt for reenter
-                //if new user:
-                    //ask for username
-                    //save username to database.
-                    //set currentUser to that person
-            } 
+                } 
+            }
+            /*login loop end*/ 
             //prompt user:
             System.out.println("wut u want:");
             System.out.println("1. cards im borrowin");
@@ -76,7 +79,7 @@ public class main {
             //add a card, whether you borrowed it or are going to borrow it. adds it to both users collections.
                //ask for card name, ask for original owner, ask for current owner?
                //lookup other user and "link" it. 
-            System.out.println("999. quitters always win");
+            System.out.println("999. quitters always win \n1000. debug reset");
             //deal with response
             int choice = input.nextInt();
             switch(choice){
@@ -89,11 +92,12 @@ public class main {
                     String name = input.nextLine();
                     System.out.println("Please Input: originalowner");
                     String originalOwner = input.nextLine();
-                    //System.out.println("Please Input: Current Owner");
-                    //String currentOwner = input.next();
-                    database.addCard(name,originalOwner,currentUser); 
+                    System.out.println("Please Input: Current Owner");
+                    String currentOwner = input.nextLine();
+                    database.addCard(name,originalOwner,currentOwner); 
                     break;
                 case 999: running = false; break;
+                case 1000: database.resetDatabase(); break;
                 default: System.out.println("invalid choice."); break;
             }
                  

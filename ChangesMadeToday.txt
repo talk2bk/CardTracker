@@ -1,0 +1,16 @@
+*login loop is now a while
+*added resetdatabase for testing purposes
+*added displayusers for testing purposes.
+
+TODO: 
+*give each user a unique ID
+*default when adding cards to have original and current owners be the current user.
+*give cards or take cards from other people. trade screen?
+*add magic card api to this so it can look up real magic cards.
+*add autocomplete and things like that.
+*solidify word choices for cards being borrowed and cards you are borrowing so shit is less confusing.
+*lookup other user and "link" it when you add a new card
+	when you create a card, set original and current owners.
+	(do i need to add this card to other people's collections? since they are in someone else's collection right now, they wouldnt show up in the originalowner's collections.)
+	(probably just add it to the current owner's collection. need to make the card link to each unique owner though.)
+*do checks when adding a card if that user exists or not. probably need to make it a while loop.

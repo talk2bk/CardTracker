@@ -21,7 +21,15 @@ public class CardTracker {
     void displayOwnedCards(User currentUser){ //these are the cards you own personally
         //parameters: current user
         //query database based on cards with original owner current user
-         
+        ArrayList<Card> results = new ArrayList<Card>();
+        for(User temp : users){
+            for(Card tempCard : temp.getCards()){
+                if(tempCard.getOriginalOwner().equals(currentUser)){
+                    results.add(tempCard);
+                }
+            }
+        }
+        displayCards(results); 
     }
     void displayBorrowedCards(User currentUser){//cards you have in your collection, not necessarily yours
         //parameters: current user
@@ -31,10 +39,12 @@ public class CardTracker {
     }
 
     void displayAllCards(User currentUser) {//cards in your current collection and cards being loaned out
-        displayCards(currentUser.getCards()); 
+        displayCards(currentUser.getCards());
     }
 
-    void addCard(String cardName, String originalOwnerName, User currentOwner) {
+    void addCard(String cardName, String originalOwnerName, String currentOwnerName) {
+        User currentOwner = lookup(currentOwnerName);
+        //lookup the user. currently works based on the assumption that the user exists.
         int index = users.indexOf(currentOwner);
         currentOwner.addACard(new Card(cardName, lookup(originalOwnerName), currentOwner));
         users.set(index, currentOwner);
@@ -87,5 +97,18 @@ public class CardTracker {
             System.out.println(e.toString());
         }
     }
+    
+    //testing methods
+    public void displayUsers(){
+        for(User temp : users){
+            System.out.println(temp.getName());
+        }
+    }
+    
+    public void resetDatabase(){
+        users = new ArrayList<User>();
+        saveDatabase();
+    }
+    
     
 }

@@ -21,7 +21,7 @@ public class main {
                 //prompt user for sign in or new account
                 int choice = input.nextInt();
                 switch(choice){
-                    case 1: 
+                    case 1: //login
                         System.out.println("please enter a name: ");
                         try{
                             currentUser = database.lookup(input.next());
@@ -31,7 +31,6 @@ public class main {
                             }
                             loggedin = true;
                             System.out.println("login succeeded");
-                            loggedin = true;
                             break;
                         }catch(Exception e){
                             System.out.println("login failed");
@@ -39,7 +38,7 @@ public class main {
                             break;
                         }
                         
-                    case 2: //currentl broken
+                    case 2: //create account
                         System.out.println("please enter a name");
                         String name = input.next();
                         if(database.lookup(name) != null){ //look up the name

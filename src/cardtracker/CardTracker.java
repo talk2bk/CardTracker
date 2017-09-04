@@ -13,7 +13,7 @@ public class CardTracker {
     void displayCards(ArrayList<Card> cards){
         System.out.println("\nCards: ");
         for(Card temp: cards){
-            System.out.println(temp.getName()+ " : " + temp.getOriginalOwner().getName() + " : "+ temp.getCurrentOwner().getName());
+            System.out.println(temp.getName()+ " : "+ temp.getNumCopies() + " : "+ temp.getOriginalOwner().getName() + " : "+ temp.getCurrentOwner().getName());
         }
         System.out.println("End Cards.\n");
     }
@@ -42,11 +42,11 @@ public class CardTracker {
         displayCards(currentUser.getCards());
     }
 
-    void addCard(String cardName, String originalOwnerName, String currentOwnerName) {
+    void addCard(String cardName,int numCopies, String originalOwnerName, String currentOwnerName) {
         User currentOwner = lookup(currentOwnerName);
         //lookup the user. currently works based on the assumption that the user exists.
         int index = users.indexOf(currentOwner);
-        currentOwner.addACard(new Card(cardName, lookup(originalOwnerName), currentOwner));
+        currentOwner.addACard(new Card(cardName,numCopies, lookup(originalOwnerName), currentOwner));
         users.set(index, currentOwner);
         saveDatabase();
     }

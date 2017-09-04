@@ -61,6 +61,7 @@ public class main {
                         }
                         break;
                     case 3: database.displayUsers(); break;
+                    case 1000: database.resetDatabase(); break;
                     default: System.out.println("invalid choice"); break;
                 } 
             }
@@ -79,7 +80,7 @@ public class main {
             //add a card, whether you borrowed it or are going to borrow it. adds it to both users collections.
                //ask for card name, ask for original owner, ask for current owner?
                //lookup other user and "link" it. 
-            System.out.println("999. quitters always win \n1000. debug reset");
+            System.out.println("999. quitters always win");
             //deal with response
             int choice = input.nextInt();
             switch(choice){
@@ -90,14 +91,16 @@ public class main {
                     input.nextLine();
                     System.out.println("Please input: cardName");
                     String name = input.nextLine();
+                    System.out.println("Please input: number of Copies");
+                    int numCopies = input.nextInt(); input.nextLine();
                     System.out.println("Please Input: originalowner");
                     String originalOwner = input.nextLine();
                     System.out.println("Please Input: Current Owner");
                     String currentOwner = input.nextLine();
-                    database.addCard(name,originalOwner,currentOwner); 
+                    database.addCard(name,numCopies,originalOwner,currentOwner); 
                     break;
                 case 999: running = false; break;
-                case 1000: database.resetDatabase(); break;
+                
                 default: System.out.println("invalid choice."); break;
             }
                  

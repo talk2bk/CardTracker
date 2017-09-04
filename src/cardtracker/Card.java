@@ -5,13 +5,29 @@ import java.io.Serializable;
 
 public class Card implements Comparable, Serializable{
     private String cardName;
+    private int numCopies;
     private User originalOwner;
     private User currentOwner;
     
     public Card(String name, User originalOwner, User currentOwner){
         cardName = name;
+        numCopies = 1;
         this.originalOwner = originalOwner;//original owner is whoever created the card?
         this.currentOwner = currentOwner;//current owner is probably the original owner?
+    }
+    public Card(String name,int numCopies, User originalOwner, User currentOwner){
+        cardName = name;
+        this.numCopies = numCopies;
+        this.originalOwner = originalOwner;//original owner is whoever created the card?
+        this.currentOwner = currentOwner;//current owner is probably the original owner?
+    }
+    
+    public int getNumCopies(){
+        return numCopies;
+    }
+    
+    public void setCopies(int num){
+        numCopies = num;
     }
     
     public void rename(String newName){

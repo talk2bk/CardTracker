@@ -1,8 +1,15 @@
-*login loop is now a while
-*added resetdatabase for testing purposes
-*added displayusers for testing purposes.
+*added copies to cards.
+*adding a card checks for existing card and then increments num copies
+*unique cards are based on name and original owner.
 
 TODO: 
+(maybe not, since requires user accounts)
+{
+*adding card, add to currentowner's collection. 
+*adding card, while loop to look for users?
+*maybe when adding card, print a list of users out and choose one to use.
+}
+
 *give each user a unique ID
 *default when adding cards to have original and current owners be the current user.
 *give cards or take cards from other people. trade screen?
@@ -14,3 +21,4 @@ TODO:
 	(do i need to add this card to other people's collections? since they are in someone else's collection right now, they wouldnt show up in the originalowner's collections.)
 	(probably just add it to the current owner's collection. need to make the card link to each unique owner though.)
 *do checks when adding a card if that user exists or not. probably need to make it a while loop.
+*need to fix adding a card in the future, definitely broken

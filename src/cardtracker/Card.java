@@ -3,23 +3,27 @@ package cardtracker;
 
 import java.io.Serializable;
 
-public class Card implements Comparable, Serializable{
-    private String cardName;
+public class Card implements Comparable, Serializable {
+    private forohfor.scryfall.api.Card card;
     private int numCopies;
     private User originalOwner;
     private User currentOwner;
     
-    public Card(String name, User originalOwner, User currentOwner){
-        cardName = name;
+    public Card(forohfor.scryfall.api.Card card, User originalOwner, User currentOwner){
+        this.card = card;
         numCopies = 1;
         this.originalOwner = originalOwner;//original owner is whoever created the card?
         this.currentOwner = currentOwner;//current owner is probably the original owner?
     }
-    public Card(String name,int numCopies, User originalOwner, User currentOwner){
-        cardName = name;
+    public Card(forohfor.scryfall.api.Card card,int numCopies, User originalOwner, User currentOwner){
+        this.card = card;
         this.numCopies = numCopies;
         this.originalOwner = originalOwner;//original owner is whoever created the card?
         this.currentOwner = currentOwner;//current owner is probably the original owner?
+    }
+    
+    public forohfor.scryfall.api.Card getCard(){
+        return card;
     }
     
     public int getNumCopies(){
@@ -29,10 +33,7 @@ public class Card implements Comparable, Serializable{
     public void setCopies(int num){
         numCopies = num;
     }
-    
-    public void rename(String newName){
-        cardName = newName;
-    }
+
     public boolean changeOwner(User newOwner){
         try{
             //check if this user exists (should catch here)
@@ -43,9 +44,7 @@ public class Card implements Comparable, Serializable{
         }
         return false;
     }
-    public String getName(){
-        return cardName;
-    }
+
     public User getOriginalOwner(){
         return originalOwner;
     }
@@ -56,16 +55,16 @@ public class Card implements Comparable, Serializable{
     @Override
     public int compareTo(Object t) {
         Card temp = (Card) t;
-        if(cardName.equalsIgnoreCase(temp.getName())){
+        if(card.getName().equalsIgnoreCase(temp.card.getName())){
             return originalOwner.compareTo(temp.originalOwner);
         }
-        return cardName.compareTo(temp.cardName);
+        return card.getName().compareTo(temp.card.getName());
     }
     
     @Override
     public boolean equals(Object t){
         Card temp = (Card) t;
-        if(cardName.equalsIgnoreCase(temp.getName())){
+        if(card.getName().equalsIgnoreCase(temp.card.getName())){
             if(originalOwner.equals(temp.originalOwner)){
                 return true;
             }

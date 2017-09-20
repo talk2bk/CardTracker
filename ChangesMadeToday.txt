@@ -1,14 +1,9 @@
-scryfall api:
-returns cards based on name. pick one.
-	check if card has multiple printings?
-		if card has multiple printings, display all options and choose one.
-	OR
-	return all printings of a card as seperate ones, choose one.
-(latter might be more intuitive, former might be a pain in the ass.)
-
+look up using scryfall api.
 
 TODO: 
 ADD A DATABASE
+
+update equals method in my card
 
 to do autocompleting searches using scryfall:
 rest api: cards/autocomplete and return the list and do that everytime they enter a letter.

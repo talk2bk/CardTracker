@@ -3,6 +3,7 @@ package cardtracker;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CardTracker {
     //this class handles database stuff and manages between cards and users
@@ -13,7 +14,7 @@ public class CardTracker {
     void displayCards(ArrayList<Card> cards){
         System.out.println("\nCards: ");
         for(Card temp: cards){
-            System.out.println(temp.getName()+ " : "+ temp.getNumCopies() + " : "+ temp.getOriginalOwner().getName() + " : "+ temp.getCurrentOwner().getName());
+            System.out.println(temp.getCard().getName()+ " : "+ temp.getNumCopies() + " : "+ temp.getOriginalOwner().getName() + " : "+ temp.getCurrentOwner().getName());
         }
         System.out.println("End Cards.\n");
     }
@@ -42,13 +43,39 @@ public class CardTracker {
         displayCards(currentUser.getCards());
     }
 
-    void addCard(String cardName,int numCopies, String originalOwnerName, String currentOwnerName) {
+    void addCard(forohfor.scryfall.api.Card card,int numCopies, String originalOwnerName, String currentOwnerName) {
         User currentOwner = lookup(currentOwnerName);
         //lookup the user. currently works based on the assumption that the user exists.
         int index = users.indexOf(currentOwner);
-        currentOwner.addACard(new Card(cardName,numCopies, lookup(originalOwnerName), currentOwner));
+        currentOwner.addACard(new Card(card,numCopies, lookup(originalOwnerName), currentOwner));
         users.set(index, currentOwner);
         saveDatabase();
+    }
+    
+    void cardFinder(){
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println("Please input: cardName");
+        String name = "";
+        /*start card search loop*/
+        ArrayList<String> temp = new ArrayList<String>();
+        temp.add(input.nextLine());
+        ArrayList<forohfor.scryfall.api.Card> searchResults = forohfor.scryfall.api.MTGCardQuery.toCardList(temp,true);
+        int i = 0;
+        for(forohfor.scryfall.api.Card card : searchResults){
+            System.out.println(""+ i++ +". "+ card.getName()+", Set: "+card.getSetName());
+        }
+        System.out.println("Please enter the number of the card: ");
+        int choice = input.nextInt(); input.nextLine();
+        
+        /*end card search loop*/
+        System.out.println("Please input: number of Copies");
+        int numCopies = input.nextInt(); input.nextLine();
+        System.out.println("Please Input: originalowner");
+        String originalOwner = input.nextLine();
+        System.out.println("Please Input: Current Owner");
+        String currentOwner = input.nextLine();
+        addCard(searchResults.get(choice),numCopies,originalOwner,currentOwner);
     }
     
     /*Handle User loading/creation/lookup*/

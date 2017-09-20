@@ -87,18 +87,7 @@ public class main {
                 case 1: database.displayBorrowedCards(currentUser); break;
                 case 2: database.displayOwnedCards(currentUser); break;
                 case 3: database.displayAllCards(currentUser); break;
-                case 4: 
-                    input.nextLine();
-                    System.out.println("Please input: cardName");
-                    String name = input.nextLine();
-                    System.out.println("Please input: number of Copies");
-                    int numCopies = input.nextInt(); input.nextLine();
-                    System.out.println("Please Input: originalowner");
-                    String originalOwner = input.nextLine();
-                    System.out.println("Please Input: Current Owner");
-                    String currentOwner = input.nextLine();
-                    database.addCard(name,numCopies,originalOwner,currentOwner); 
-                    break;
+                case 4: database.cardFinder(); break;
                 case 999: running = false; break;
                 
                 default: System.out.println("invalid choice."); break;

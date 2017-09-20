@@ -1,8 +1,18 @@
-*added copies to cards.
-*adding a card checks for existing card and then increments num copies
-*unique cards are based on name and original owner.
+scryfall api:
+returns cards based on name. pick one.
+	check if card has multiple printings?
+		if card has multiple printings, display all options and choose one.
+	OR
+	return all printings of a card as seperate ones, choose one.
+(latter might be more intuitive, former might be a pain in the ass.)
+
 
 TODO: 
+ADD A DATABASE
+
+to do autocompleting searches using scryfall:
+rest api: cards/autocomplete and return the list and do that everytime they enter a letter.
+
 (maybe not, since requires user accounts)
 {
 *adding card, add to currentowner's collection. 

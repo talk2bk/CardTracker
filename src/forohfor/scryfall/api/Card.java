@@ -1,4 +1,5 @@
 package forohfor.scryfall.api;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +12,7 @@ import org.json.simple.JSONObject;
  * @author ForOhForError
  */
 
-public class Card {
+public class Card implements Serializable{
 	private String name;
 	private String manaCost;
 	private Double cmc;

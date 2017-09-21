@@ -4,6 +4,7 @@ TODO:
 ADD A DATABASE
 
 update equals method in my card
+fix search to search for name and unfold results
 
 to do autocompleting searches using scryfall:
 rest api: cards/autocomplete and return the list and do that everytime they enter a letter.

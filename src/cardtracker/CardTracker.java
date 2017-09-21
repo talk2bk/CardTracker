@@ -13,6 +13,7 @@ public class CardTracker {
     }
     void displayCards(ArrayList<Card> cards){
         System.out.println("\nCards: ");
+        System.out.println("Name : Copies : Original Owner : Current Owner");
         for(Card temp: cards){
             System.out.println(temp.getCard().getName()+ " : "+ temp.getNumCopies() + " : "+ temp.getOriginalOwner().getName() + " : "+ temp.getCurrentOwner().getName());
         }
@@ -58,9 +59,7 @@ public class CardTracker {
         System.out.println("Please input: cardName");
         String name = "";
         /*start card search loop*/
-        ArrayList<String> temp = new ArrayList<String>();
-        temp.add(input.nextLine());
-        ArrayList<forohfor.scryfall.api.Card> searchResults = forohfor.scryfall.api.MTGCardQuery.toCardList(temp,true);
+        ArrayList<forohfor.scryfall.api.Card> searchResults = forohfor.scryfall.api.MTGCardQuery.search("++! "+input.nextLine());
         int i = 0;
         for(forohfor.scryfall.api.Card card : searchResults){
             System.out.println(""+ i++ +". "+ card.getName()+", Set: "+card.getSetName());

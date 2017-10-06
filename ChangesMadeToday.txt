@@ -2,8 +2,12 @@ put in unit tests(still currently inoperable)
 
 TODO: 
 ADD A DATABASE
-
-
+mongodb:
+database (full thing)
+	table(collection) - a grouping of all users
+		tuple/row(document) - a single user in teh document
+			column(field) - an attribute of the user
+(need to convert my objects into gson/json parsable objects)
 
 to do autocompleting searches using scryfall:
 rest api: cards/autocomplete and return the list and do that everytime they enter a letter.

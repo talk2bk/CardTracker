@@ -4,13 +4,19 @@ package cardtracker;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import com.mongodb.client.MongoCollection; 
+import com.mongodb.client.MongoDatabase; 
+import com.mongodb.MongoClient; 
+import org.bson.Document; 
 
 public class CardTracker {
     //this class handles database stuff and manages between cards and users
     ArrayList<User> users;
     public CardTracker(){
         loadDatabase();
+        loadCollection();
     }
+    //**to convert
     void displayCards(ArrayList<Card> cards){
         System.out.println("\nCards: ");
         System.out.println("Name : Copies : Original Owner : Current Owner");
@@ -19,7 +25,7 @@ public class CardTracker {
         }
         System.out.println("End Cards.\n");
     }
-    
+    //**to convert
     void displayOwnedCards(User currentUser){ //these are the cards you own personally
         //parameters: current user
         //query database based on cards with original owner current user
@@ -33,17 +39,18 @@ public class CardTracker {
         }
         displayCards(results); 
     }
+    //**to convert
     void displayBorrowedCards(User currentUser){//cards you have in your collection, not necessarily yours
         //parameters: current user
         //query database based on cards in current user's collection 
         displayCards(currentUser.getBorrowedCards());
         
     }
-
+    //**to convert
     void displayAllCards(User currentUser) {//cards in your current collection and cards being loaned out
         displayCards(currentUser.getCards());
     }
-
+    //**to convert
     void addCard(forohfor.scryfall.api.Card card,int numCopies, String originalOwnerName, String currentOwnerName) {
         User currentOwner = lookup(currentOwnerName);
         //lookup the user. currently works based on the assumption that the user exists.
@@ -78,7 +85,7 @@ public class CardTracker {
     }
     
     /*Handle User loading/creation/lookup*/
-    
+    //**to convert
     User lookup(String name){
         for(User temp: users){
             if(temp.getName().equalsIgnoreCase(name)){
@@ -87,7 +94,7 @@ public class CardTracker {
         }
         return null;
     }
-    
+    //**to convert
     User createUser(String name){
         User temp = new User(name);
         users.add(temp);
@@ -95,7 +102,7 @@ public class CardTracker {
         return temp;
     }
     /*end Handle User loading/creation/lookup*/
-    
+    //**to convert
     public void saveDatabase(){
         try{
             FileOutputStream output = new FileOutputStream("users.db");
@@ -108,6 +115,7 @@ public class CardTracker {
         }
         
     }
+    //**to convert
     public void loadDatabase(){
         try{
             FileInputStream input = new FileInputStream("users.db");
@@ -123,14 +131,25 @@ public class CardTracker {
             System.out.println(e.toString());
         }
     }
+    //**to finish
+    public void loadCollection(){
+        System.out.println("Loading Collection Start");
+        MongoClient mongoClient = new MongoClient();
+        for(String temp : mongoClient.listDatabaseNames()){
+        System.out.println(temp);}
+        MongoDatabase db = mongoClient.getDatabase("userDatabase");
+        MongoCollection<Document> collection = db.getCollection("users");
+        System.out.println("Loading Collection End");
+    }
     
     //testing methods
+    //**to convert
     public void displayUsers(){
         for(User temp : users){
             System.out.println(temp.getName());
         }
     }
-    
+    //**to convert
     public void resetDatabase(){
         users = new ArrayList<User>();
         saveDatabase();

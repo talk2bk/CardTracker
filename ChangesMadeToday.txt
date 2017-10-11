@@ -1,4 +1,12 @@
 put in unit tests(still currently inoperable)
+to update database functions:
+update loadDatabase to access mongoDB(query collections)
+update savedatabase to save to mongodb collections
+to update other methods:
+	require look up of that user in teh database.
+	after each operation, save the changes in teh database.
+		(will eventually need to implement a fix for multiple simultaneous user access)
+	
 
 TODO: 
 ADD A DATABASE

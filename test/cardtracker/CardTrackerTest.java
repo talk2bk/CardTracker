@@ -37,6 +37,9 @@ public class CardTrackerTest {
     
     @Before
     public void setUp() {
+        //create a database or refer the existing one.
+        //probably create a dummy database or a copy of a real one, pull cards from it. not really sure how to confirm testing.
+        
     }
     
     @After

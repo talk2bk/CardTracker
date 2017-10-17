@@ -29,6 +29,7 @@ public class mainTest {
     
     @Before
     public void setUp() {
+        //connect to a database
     }
     
     @After
@@ -40,6 +41,13 @@ public class mainTest {
      */
     @Test
     public void testMain() {
+        //test login
+            //create a user
+                //unique names?
+            //login a user
+                //check for existing names
+                //check passwords??
+        
         System.out.println("main");
         String[] args = null;
         main.main(args);

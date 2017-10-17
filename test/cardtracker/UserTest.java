@@ -38,6 +38,7 @@ public class UserTest {
     
     @Before
     public void setUp() {
+        //make a user with random info OR pull a random user and keep track of his info? maybe make a dummy database with dummy users in to test
     }
     
     @After

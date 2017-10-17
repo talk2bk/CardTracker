@@ -36,6 +36,7 @@ public class CardTest {
     
     @Before
     public void setUp() {
+        //create a card???
     }
     
     @After

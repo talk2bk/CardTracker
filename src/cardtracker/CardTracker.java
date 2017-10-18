@@ -12,6 +12,9 @@ import org.bson.Document;
 public class CardTracker {
     //this class handles database stuff and manages between cards and users
     ArrayList<User> users;
+    MongoDatabase db;
+    MongoCollection<Document> usersMongo;
+    
     public CardTracker(){
         loadDatabase();
         loadCollection();
@@ -92,7 +95,7 @@ public class CardTracker {
                 return temp;
             }
         }
-        return null;
+        return createUser(name);
     }
     //**to convert
     User createUser(String name){
@@ -105,27 +108,31 @@ public class CardTracker {
     //**to convert
     public void saveDatabase(){
         try{
-            FileOutputStream output = new FileOutputStream("users.db");
-            ObjectOutputStream objectOut = new ObjectOutputStream(output);
-            objectOut.writeObject(users);
-            objectOut.close();
-            System.out.println("Successfully saved database.");
+            FileOutputStream output = new FileOutputStream("users.db"); //create a file named users.db made to output shit
+            ObjectOutputStream objectOut = new ObjectOutputStream(output); //create a thing to output info
+            objectOut.writeObject(users); //shove the users into that thing and make it outputable
+            objectOut.close(); //close teh writer
+            System.out.println("Successfully saved database."); //done
         }catch(Exception e){
             System.out.println(e.toString());
         }
         
     }
+    
+    public void saveCollection(){
+        
+    }
     //**to convert
     public void loadDatabase(){
         try{
-            FileInputStream input = new FileInputStream("users.db");
-            ObjectInputStream objectIn = new ObjectInputStream(input);
-            users = (ArrayList<User>) objectIn.readObject();
-            objectIn.close();
-            System.out.println("successfully loaded database.");
+            FileInputStream input = new FileInputStream("users.db"); //read from file users.db
+            ObjectInputStream objectIn = new ObjectInputStream(input); //reader for file
+            users = (ArrayList<User>) objectIn.readObject(); //read info from object and convert it back to an arraylist
+            objectIn.close(); //close the reader
+            System.out.println("successfully loaded database."); //done
         }catch(FileNotFoundException e){
             //no preexisting database, so make one.
-            users = new ArrayList<User>();
+            users = new ArrayList<User>(); //new database (probably sohuld save after)
             System.out.println("no database found, creating new one.");
         }catch(Exception e){
             System.out.println(e.toString());
@@ -134,11 +141,9 @@ public class CardTracker {
     //**to finish
     public void loadCollection(){
         System.out.println("Loading Collection Start");
-        MongoClient mongoClient = new MongoClient();
-        for(String temp : mongoClient.listDatabaseNames()){
-        System.out.println(temp);}
-        MongoDatabase db = mongoClient.getDatabase("userDatabase");
-        MongoCollection<Document> collection = db.getCollection("users");
+        MongoClient mongoClient = new MongoClient(); //connect to mongodb
+        db = mongoClient.getDatabase("userDatabase"); //if database doesnt exist, itll create it and connect
+        usersMongo = db.getCollection("users"); //create a collection
         System.out.println("Loading Collection End");
     }
     

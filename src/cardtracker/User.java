@@ -1,8 +1,11 @@
 
 package cardtracker;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable, Comparable{
     private String name;
@@ -21,6 +24,17 @@ public class User implements Serializable, Comparable{
     
     String getName() {
         return name;
+    }
+    DBObject createDBObject(){
+        DBObject userDBObject = new BasicDBObject("name", name);
+        //to do
+        for(Card temp : cards){
+            //convert to basicdbobject and shove it in
+            
+        }
+        
+        
+        return userDBObject;
     }
     
     ArrayList<Card> getBorrowedCards(){

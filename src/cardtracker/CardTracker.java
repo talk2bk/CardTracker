@@ -51,11 +51,11 @@ public class CardTracker {
         displayCards(currentUser.getCards());
     }
     //**to convert
-    void addCard(forohfor.scryfall.api.Card card,int numCopies, String originalOwnerName, String currentOwnerName) {
+    void addCard(String scryfallUUID,int numCopies, String originalOwnerName, String currentOwnerName) {
         User currentOwner = lookup(currentOwnerName);
         //lookup the user. currently works based on the assumption that the user exists.
         int index = users.indexOf(currentOwner);
-        currentOwner.addACard(new Card(card,numCopies, lookup(originalOwnerName), currentOwner));
+        currentOwner.addACard(new Card(scryfallUUID,numCopies, lookup(originalOwnerName), currentOwner));
         users.set(index, currentOwner);
         saveDatabase();
     }
@@ -81,7 +81,7 @@ public class CardTracker {
         String originalOwner = input.nextLine();
         System.out.println("Please Input: Current Owner");
         String currentOwner = input.nextLine();
-        addCard(searchResults.get(choice),numCopies,originalOwner,currentOwner);
+        addCard(searchResults.get(choice).getScryfallUUID(),numCopies,originalOwner,currentOwner);
     }
     
     /*Handle User loading/creation/lookup*/

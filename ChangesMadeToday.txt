@@ -7,8 +7,15 @@ to update other methods:
 	after each operation, save the changes in teh database.
 		(will eventually need to implement a fix for multiple simultaneous user access)
 	
-
+changed it from keeping track of all card info to just keepign track of scryfall ids
+	
 TODO: 
+refactor card handling:
+	each card keeps track of a unique ID instead of all the card info. can pull info when needed.
+
+
+
+
 ADD A DATABASE
 mongodb:
 database (full thing)

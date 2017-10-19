@@ -1,12 +1,15 @@
 
 package cardtracker;
 
+import com.mongodb.DBCursor;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import com.mongodb.client.MongoCollection; 
 import com.mongodb.client.MongoDatabase; 
 import com.mongodb.MongoClient; 
+import com.mongodb.client.FindIterable;
+import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document; 
 
 public class CardTracker {
@@ -55,13 +58,14 @@ public class CardTracker {
     }
     //**to convert
     void addCard(String scryfallUUID,int numCopies, String originalOwnerName, String currentOwnerName) {
-        User currentOwner = lookup(currentOwnerName);
+        User currentOwner = collectionLookup(currentOwnerName);
         //lookup the user. currently works based on the assumption that the user exists.
         int index = users.indexOf(currentOwner);
         currentOwner.addACard(new Card(scryfallUUID,numCopies, originalOwnerName, currentOwnerName));
         users.set(index, currentOwner);
         saveDatabase();
     }
+    
     
     void cardFinder(){
         Scanner input = new Scanner(System.in);
@@ -97,12 +101,24 @@ public class CardTracker {
         }
         return createUser(name);
     }
+    
+    User collectionLookup(String name){
+        FindIterable<Document> results = usersMongo.find(eq("name",name));
+        if(results.first() != null){return new User(results.first());}
+        
+        return null;
+    }
     //**to convert
     User createUser(String name){
         User temp = new User(name);
         users.add(temp);
         saveDatabase();
         return temp;
+    }
+    
+    User collectionCreateUser(String name){
+        usersMongo.insertOne(new User(name).createDocument());
+        return new User(name);
     }
     /*end Handle User loading/creation/lookup*/
     //**to convert
@@ -154,10 +170,19 @@ public class CardTracker {
             System.out.println(temp.getName());
         }
     }
+    
+    public void collectionDisplayUsers(){
+        FindIterable<Document> findIterable = usersMongo.find(new Document());
+        for(Document temp : findIterable){System.out.println(temp.get("name"));}
+    }
     //**to convert
     public void resetDatabase(){
         users = new ArrayList<User>();
         saveDatabase();
+    }
+    
+    public void resetCollection(){
+        usersMongo.deleteMany(new Document());
     }
     
     

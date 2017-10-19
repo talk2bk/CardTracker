@@ -25,7 +25,7 @@ public class main {
                     case 1: //login
                         System.out.println("username: ");
                         try{
-                            currentUser = database.lookup(input.next());
+                            currentUser = database.collectionLookup(input.next());
                             //if sign in then look up name in database (cardtracker's job)
                             if(currentUser == null){
                                 System.out.println("login failed: user not found");
@@ -47,21 +47,21 @@ public class main {
                         System.out.println("please enter a name: ");
                         String name = input.next();
                         //ask for username
-                        if(database.lookup(name) != null){ //look up the name
+                        if(database.collectionLookup(name) != null){ //look up the name
                             System.out.println("name already exists.");
                             //if it does exist: prompt for a new name.
                             
                         }
                         else{
-                            currentUser = database.createUser(name);
+                            currentUser = database.collectionCreateUser(name);
                             //save username to database.; set currentUser to that person
                             loggedin = true;
                             System.out.println("login succeeded");
                             //if it doesnt exist, add it and bam done.
                         }
                         break;
-                    case 3: database.displayUsers(); break;
-                    case 1000: database.resetDatabase(); break;
+                    case 3: database.collectionDisplayUsers(); break;
+                    case 1000: database.resetCollection(); break;
                     default: System.out.println("invalid choice"); break;
                 } 
             }

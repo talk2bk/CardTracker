@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.bson.Document;
 
 public class User implements Serializable, Comparable{
     private String name;
@@ -24,12 +25,11 @@ public class User implements Serializable, Comparable{
         this.cards = cards;
     }
     
-    public User(BasicDBObject user){
+    public User(Document user){
         this.name = user.getString("name");
         this.cards = new ArrayList<Card>();
-        List<BasicDBObject> convertedCards = (List) user.get("cards");
-        for(BasicDBObject card : convertedCards){
-            cards.add(new Card(card));
+        for(Object card : (List) user.get("cards")){
+            cards.add(new Card((BasicDBObject)card));
         }
         
     }
@@ -37,11 +37,11 @@ public class User implements Serializable, Comparable{
     String getName() {
         return name;
     }
-    DBObject createDBObject(){
-        BasicDBObject userDBObject = new BasicDBObject("name", name);
+    Document createDocument(){
+        Document userDBObject = new Document("name", name);
         ArrayList<BasicDBObject> convertedCards = new ArrayList<BasicDBObject>();
         for(Card temp : cards){convertedCards.add(temp.convertCard());}//convert to basicdbobject and shove it in
-        userDBObject.append("cards", Arrays.asList(convertedCards));
+        userDBObject.append("cards", convertedCards);
         
         return userDBObject;
     }

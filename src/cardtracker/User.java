@@ -46,6 +46,7 @@ public class User implements Serializable, Comparable{
         return userDBObject;
     }
     
+    
     ArrayList<Card> getBorrowedCards(){
         ArrayList<Card> results = new ArrayList<Card>();
         for(Card temp : cards){

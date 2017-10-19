@@ -54,16 +54,20 @@ public class CardTracker {
     }
     //**to convert
     void displayAllCards(User currentUser) {//cards in your current collection and cards being loaned out
-        displayCards(currentUser.getCards());
+        displayCards(collectionLookup(currentUser.getName()).getCards());
     }
     //**to convert
     void addCard(String scryfallUUID,int numCopies, String originalOwnerName, String currentOwnerName) {
         User currentOwner = collectionLookup(currentOwnerName);
         //lookup the user. currently works based on the assumption that the user exists.
+        /*
         int index = users.indexOf(currentOwner);
         currentOwner.addACard(new Card(scryfallUUID,numCopies, originalOwnerName, currentOwnerName));
         users.set(index, currentOwner);
         saveDatabase();
+        */
+        currentOwner.addACard(new Card(scryfallUUID,numCopies, originalOwnerName, currentOwnerName));
+        usersMongo.replaceOne(eq("name", currentOwner.getName()), currentOwner.createDocument());
     }
     
     

@@ -6,7 +6,12 @@ to update other methods:
 	require look up of that user in teh database.
 	after each operation, save the changes in teh database.
 		(will eventually need to implement a fix for multiple simultaneous user access)
-	
+
+
+some issue with how users are retrieved or saved.
+	classcastexception only occurs after a card has been created and added
+	when you go to look at all owned cards -> errors on lookup and deserialization of the User
+
 TODO: 
 refactor card handling:
 	each card keeps track of a unique ID instead of all the card info. can pull info when needed.

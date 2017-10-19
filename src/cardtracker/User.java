@@ -5,16 +5,18 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class User implements Serializable, Comparable{
     private String name;
-    private ArrayList<Card> cards = new ArrayList<Card>();
+    private ArrayList<Card> cards;
     private String uniqueID; //to implement
     
     //new user
     public User(String name){
         this.name = name;
+        this.cards = new ArrayList<Card>();
     }
     //for transfering user accounts?
     public User(String name, ArrayList<Card> cards){
@@ -22,17 +24,24 @@ public class User implements Serializable, Comparable{
         this.cards = cards;
     }
     
+    public User(BasicDBObject user){
+        this.name = user.getString("name");
+        this.cards = new ArrayList<Card>();
+        List<BasicDBObject> convertedCards = (List) user.get("cards");
+        for(BasicDBObject card : convertedCards){
+            cards.add(new Card(card));
+        }
+        
+    }
+    
     String getName() {
         return name;
     }
     DBObject createDBObject(){
-        DBObject userDBObject = new BasicDBObject("name", name);
-        //to do
-        for(Card temp : cards){
-            //convert to basicdbobject and shove it in
-            
-        }
-        
+        BasicDBObject userDBObject = new BasicDBObject("name", name);
+        ArrayList<BasicDBObject> convertedCards = new ArrayList<BasicDBObject>();
+        for(Card temp : cards){convertedCards.add(temp.convertCard());}//convert to basicdbobject and shove it in
+        userDBObject.append("cards", Arrays.asList(convertedCards));
         
         return userDBObject;
     }

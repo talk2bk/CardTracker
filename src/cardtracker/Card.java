@@ -1,6 +1,8 @@
 
 package cardtracker;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -9,20 +11,27 @@ import java.util.logging.Logger;
 public class Card implements Comparable, Serializable {
     private String scryfallUUID;
     private int numCopies;
-    private User originalOwner;
-    private User currentOwner;
+    private String originalOwner;
+    private String currentOwner;
     
-    public Card(String scryfallUUID, User originalOwner, User currentOwner){
+    public Card(String scryfallUUID, String originalOwner, String currentOwner){
         this.scryfallUUID = scryfallUUID;
         numCopies = 1;
         this.originalOwner = originalOwner;//original owner is whoever created the card?
         this.currentOwner = currentOwner;//current owner is probably the original owner?
     }
-    public Card(String scryfallUUID,int numCopies, User originalOwner, User currentOwner){
+    public Card(String scryfallUUID,int numCopies, String originalOwner, String currentOwner){
         this.scryfallUUID = scryfallUUID;
         this.numCopies = numCopies;
         this.originalOwner = originalOwner;//original owner is whoever created the card?
         this.currentOwner = currentOwner;//current owner is probably the original owner?
+    }
+    
+    public Card(BasicDBObject card){
+        this.scryfallUUID = card.getString("scryfallUUID");
+        this.numCopies = card.getInt("numCopies");
+        this.originalOwner = card.getString("originalOwner");
+        this.currentOwner = card.getString("currentOwner");
     }
     
     public forohfor.scryfall.api.Card getCard(){
@@ -43,7 +52,7 @@ public class Card implements Comparable, Serializable {
         numCopies = num;
     }
 
-    public boolean changeOwner(User newOwner){
+    public boolean changeOwner(String newOwner){
         try{
             //check if this user exists (should catch here)
             originalOwner = newOwner;
@@ -54,13 +63,21 @@ public class Card implements Comparable, Serializable {
         return false;
     }
 
-    public User getOriginalOwner(){
+    public String getOriginalOwner(){
         return originalOwner;
     }
-    public User getCurrentOwner(){
+    public String getCurrentOwner(){
         return currentOwner;
     }
-
+    
+    public BasicDBObject convertCard(){
+        BasicDBObject result = new BasicDBObject("scryfallUUID",scryfallUUID);
+        result.append("numCopies",numCopies);
+        result.append("originalOwner", originalOwner);
+        result.append("currentOwner", currentOwner);
+        return result;
+    }
+    
     @Override
     public int compareTo(Object t) {
         Card temp = (Card) t;

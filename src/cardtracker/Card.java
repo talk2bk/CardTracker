@@ -11,6 +11,7 @@ public class Card implements Comparable, Serializable {
     private int numCopies;
     private String originalOwner;
     private String currentOwner;
+    private boolean foil;
     
     public Card(String scryfallUUID, String originalOwner, String currentOwner){
         this.scryfallUUID = scryfallUUID;
@@ -18,11 +19,12 @@ public class Card implements Comparable, Serializable {
         this.originalOwner = originalOwner;//original owner is whoever created the card?
         this.currentOwner = currentOwner;//current owner is probably the original owner?
     }
-    public Card(String scryfallUUID,int numCopies, String originalOwner, String currentOwner){
+    public Card(String scryfallUUID,int numCopies, String originalOwner, String currentOwner, boolean foil){
         this.scryfallUUID = scryfallUUID;
         this.numCopies = numCopies;
         this.originalOwner = originalOwner;//original owner is whoever created the card?
         this.currentOwner = currentOwner;//current owner is probably the original owner?
+        this.foil = foil;
     }
     
     public forohfor.scryfall.api.Card getCard(){
@@ -33,6 +35,14 @@ public class Card implements Comparable, Serializable {
             Logger.getLogger(Card.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+    
+    public boolean getFoil(){
+        return foil;
+    }
+    
+    public void setFoil(boolean foil){
+        this.foil = foil; 
     }
     
     public int getNumCopies(){

@@ -44,11 +44,11 @@ public class CardTracker {
         displayCards(currentUser.getCards());
     }
 
-    void addCard(String scryfallUUID,int numCopies, String originalOwnerName, String currentOwnerName) {
+    void addCard(String scryfallUUID,int numCopies, String originalOwnerName, String currentOwnerName, boolean foil) {
         User currentOwner = lookup(currentOwnerName);
         //lookup the user. currently works based on the assumption that the user exists.
         int index = users.indexOf(currentOwner);
-        currentOwner.addACard(new Card(scryfallUUID,numCopies, originalOwnerName, currentOwnerName));
+        currentOwner.addACard(new Card(scryfallUUID,numCopies, originalOwnerName, currentOwnerName, foil));
         users.set(index, currentOwner);
         saveDatabase();
     }
@@ -68,13 +68,15 @@ public class CardTracker {
         int choice = input.nextInt(); input.nextLine();
         
         /*end card search loop*/
+        System.out.println("Please input: foil? (true or false");
+        boolean foil = input.hasNextBoolean();
         System.out.println("Please input: number of Copies");
         int numCopies = input.nextInt(); input.nextLine();
         System.out.println("Please Input: originalowner");
         String originalOwner = input.nextLine();
         System.out.println("Please Input: Current Owner");
         String currentOwner = input.nextLine();
-        addCard(searchResults.get(choice).getScryfallUUID(),numCopies,originalOwner,currentOwner);
+        addCard(searchResults.get(choice).getScryfallUUID(),numCopies,originalOwner,currentOwner, foil);
 }
     
     /*Handle User loading/creation/lookup*/

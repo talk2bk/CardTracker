@@ -26,7 +26,7 @@ public class CardTracker {
         ArrayList<Card> results = new ArrayList<Card>();
         for(User temp : users){
             for(Card tempCard : temp.getCards()){
-                if(tempCard.getOriginalOwner().equals(currentUser)){
+                if(tempCard.getOriginalOwner().equals(currentUser.getName())){
                     results.add(tempCard);
                 }
             }
@@ -84,8 +84,9 @@ public class CardTracker {
             if(temp.getName().equalsIgnoreCase(name)){
                 return temp;
             }
-        }
-        return null;
+        }// if the user exists, return them
+        //if the user doesnt exist, create them
+        return createUser(name);
     }
     
     User createUser(String name){

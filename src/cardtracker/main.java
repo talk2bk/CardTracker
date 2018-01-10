@@ -85,9 +85,9 @@ public class main {
             //deal with response
             int choice = input.nextInt();
             switch(choice){
-                case 1: database.displayBorrowedCards(currentUser); break;
-                case 2: database.displayOwnedCards(currentUser); break;
-                case 3: database.displayAllCards(currentUser); break;
+                case 1: database.displayBorrowedCards(currentUser); break; //all cards im borrowing
+                case 2: database.displayOwnedCards(currentUser); break; //all cards i own
+                case 3: database.displayAllCards(currentUser); break; //all cardsi n my current possession
                 case 4: database.cardFinder(); break;
                 case 999: running = false; break;
                 

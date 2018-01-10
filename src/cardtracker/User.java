@@ -25,9 +25,9 @@ public class User implements Serializable, Comparable{
     
     ArrayList<Card> getBorrowedCards(){
         ArrayList<Card> results = new ArrayList<Card>();
-        for(Card temp : cards){
-            if(!temp.getOriginalOwner().equals(this)){
-                results.add(temp);
+        for(Card card : cards){
+            if(!card.getOriginalOwner().equals(this.name)){
+                results.add(card);
                 
             }
         }

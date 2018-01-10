@@ -10,10 +10,6 @@ import com.mongodb.MongoClient;
 public class main {
 
     public static void main(String[] args) {
-        MongoClient mongoClient = new MongoClient();
-        for(String temp : mongoClient.listDatabaseNames()){
-        System.out.println(temp);
-    }
         CardTracker database = new CardTracker();
         User currentUser = null;
         //temp database for test
